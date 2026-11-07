@@ -34,3 +34,19 @@ prediction <- function(X, w, seuil = 0.5) {
     classes = classes
   ))
 }
+#' Calculer les probabilites des mots de passe
+#'
+#' @param X Matrice des variables explicatives normalisees.
+#' @param w Coefficients optimises du modele.
+#' @return Vecteur de probabilites.
+#' @export
+predire_prob <- function(X, w) {
+
+  # Ajouter la colonne du biais
+  Xb <- cbind(1, X)
+
+  # Calculer les probabilites
+  probabilites <- sigmoide(Xb %*% w)
+
+  return(as.vector(probabilites))
+}

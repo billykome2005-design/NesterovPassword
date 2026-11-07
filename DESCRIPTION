@@ -1,6 +1,6 @@
 Package: NesterovPassword
 Title: Classification des mots de passe par optimisation de Nesterov
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R:
     person("ALEKOU KOME BILLY WILLER", role = c("aut", "cre"),
            email = "billykome2005@gmail.com")
