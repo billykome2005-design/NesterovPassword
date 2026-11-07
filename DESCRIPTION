@@ -1,0 +1,20 @@
+Package: NesterovPassword
+Title: Classification des mots de passe par optimisation de Nesterov
+Version: 0.0.0.9000
+Authors@R:
+    person("ALEKOU KOME BILLY WILLER", role = c("aut", "cre"),
+           email = "billykome2005@gmail.com")
+Description: Propose des outils pour la classification binaire des
+    mots de passe en deux catégories : faibles et forts, à l'aide de
+    la régression logistique et de l'algorithme d'optimisation de
+    Nesterov. Comprend des fonctions de calcul de la sigmoïde, de la
+    fonction de coût, du gradient, d'optimisation des coefficients
+    et de prédiction. Ce package est conçu à des fins pédagogiques
+    et utilise des données synthétiques.
+License: MIT + file LICENSE
+Config/roxygen2/version: 8.1.1
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
