@@ -1,25 +1,38 @@
-#' Tester plusieurs mots de passe
+#' Tester un ou plusieurs mots de passe
 #'
-#' Classe plusieurs mots de passe en faibles ou forts
-#' a partir d'un modele de regression logistique optimise
+#' Classe les mots de passe en faibles ou forts
+#' avec le modele de regression logistique optimise
 #' par une methode de type Nesterov.
 #'
 #' @param mots_de_passe Vecteur de mots de passe a tester.
-#' @param w Coefficients appris par le modele.
-#' @param moyennes Moyennes utilisees pour la normalisation.
-#' @param ecarts_types Ecarts-types utilises pour la normalisation.
 #' @param seuil Seuil de classification (0.5 par defaut).
-#'
-#' @return Un tableau contenant les mots de passe,
-#' leurs probabilites et leur classification.
+#' @return Un tableau contenant les probabilites et classifications.
 #' @export
-tester_mots_de_passe <- function(
-    mots_de_passe,
-    w,
-    moyennes,
-    ecarts_types,
-    seuil = 0.5
-) {
+
+tester_mots_de_passe <- function(mots_de_passe, seuil = 0.5) {
+
+  # Parametres du modele entraines
+  w <- c(
+    1.0324267,
+    1.6178177,
+    0.6740966,
+    0.7739071,
+    1.1181882
+  )
+
+  moyennes <- c(
+    12.28750,
+    0.50625,
+    0.50000,
+    0.48750
+  )
+
+  ecarts_types <- c(
+    4.5974938,
+    0.5015307,
+    0.5015699,
+    0.5014131
+  )
 
   # Verifier les entrees
   if (!is.character(mots_de_passe) ||
@@ -29,11 +42,10 @@ tester_mots_de_passe <- function(
     stop("Fournir des mots de passe non vides.")
   }
 
-  if (length(w) != 5 ||
-      length(moyennes) != 4 ||
-      length(ecarts_types) != 4 ||
-      any(ecarts_types <= 0)) {
-    stop("Les parametres du modele sont invalides.")
+  # Verifier le seuil
+  if (length(seuil) != 1 || is.na(seuil) ||
+      seuil < 0 || seuil > 1) {
+    stop("Le seuil doit etre compris entre 0 et 1.")
   }
 
   # Extraire les caracteristiques
@@ -52,7 +64,7 @@ tester_mots_de_passe <- function(
     numeric(4)
   ))
 
-  # Normaliser avec les parametres d'entrainement
+  # Normaliser les donnees
   X_norm <- scale(
     X,
     center = moyennes,
@@ -60,16 +72,16 @@ tester_mots_de_passe <- function(
   )
 
   # Calculer les probabilites
-  probabilites <- NesterovPassword::predire_prob(X_norm, w)
+  probabilites <- predire_prob(X_norm, w)
 
-  # Determiner les classes
+  # Determiner les classifications
   classification <- ifelse(
     probabilites >= seuil,
     "FORT",
     "FAIBLE"
   )
 
-  # Construire le tableau final
+  # Construire le resultat
   data.frame(
     mot_de_passe = mots_de_passe,
     probabilite = round(probabilites * 100, 2),

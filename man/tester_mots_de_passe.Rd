@@ -2,27 +2,20 @@
 % Please edit documentation in R/tester_mots_de_passe.R
 \name{tester_mots_de_passe}
 \alias{tester_mots_de_passe}
-\title{Tester plusieurs mots de passe}
+\title{Tester un ou plusieurs mots de passe}
 \usage{
-tester_mots_de_passe(mots_de_passe, w, moyennes, ecarts_types, seuil = 0.5)
+tester_mots_de_passe(mots_de_passe, seuil = 0.5)
 }
 \arguments{
 \item{mots_de_passe}{Vecteur de mots de passe a tester.}
 
-\item{w}{Coefficients appris par le modele.}
-
-\item{moyennes}{Moyennes utilisees pour la normalisation.}
-
-\item{ecarts_types}{Ecarts-types utilises pour la normalisation.}
-
 \item{seuil}{Seuil de classification (0.5 par defaut).}
 }
 \value{
-Un tableau contenant les mots de passe,
-leurs probabilites et leur classification.
+Un tableau contenant les probabilites et classifications.
 }
 \description{
-Classe plusieurs mots de passe en faibles ou forts
-a partir d'un modele de regression logistique optimise
+Classe les mots de passe en faibles ou forts
+avec le modele de regression logistique optimise
 par une methode de type Nesterov.
 }
